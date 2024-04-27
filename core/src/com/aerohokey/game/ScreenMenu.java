@@ -1,7 +1,6 @@
 package com.aerohokey.game;
 
-import static com.aerohokey.game.Aerohokey.SCR_HEIGHT;
-import static com.aerohokey.game.Aerohokey.SCR_WIDTH;
+import static com.aerohokey.game.Aerohockey.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -12,31 +11,32 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
 public class ScreenMenu implements Screen {
-    Aerohokey aerohokey;
+    Aerohockey main;
 
-    Texture imgBackGround;
     SpriteBatch batch;
     OrthographicCamera camera;
     Vector3 touch;
     BitmapFont font;
+    Texture imgBackGround;
+
     AeroButton btnPlay;
     AeroButton btnSettings;
     AeroButton btnAbout;
     AeroButton btnExit;
 
-    public ScreenMenu (Aerohokey aerohokey) {
-        this.aerohokey = aerohokey;
-        imgBackGround = new Texture("bg2.png");
-        camera = aerohokey.camera;
-        touch = aerohokey.touch;
-        batch = aerohokey.batch;
-        font = aerohokey.fontSmall;
+    public ScreenMenu (Aerohockey main) {
+        this.main = main;
+        camera = main.cameraForFont;
+        touch = main.touch;
+        batch = main.batch;
+        font = main.fontSmall;
 
+        imgBackGround = new Texture("bg0.png");
 
-        btnPlay = new AeroButton("Play", 380, 1000, font);
-        btnSettings = new AeroButton("Settings", 335, 880, font);
-        btnAbout = new AeroButton("About Game", 290, 780, font);
-        btnExit = new AeroButton("Exit", 380, 630, font);
+        btnPlay = new AeroButton("Play", 800, font);
+        btnSettings = new AeroButton("Settings", 700, font);
+        btnAbout = new AeroButton("About Game", 600, font);
+        btnExit = new AeroButton("Exit", 500, font);
     }
 
     @Override
@@ -52,13 +52,13 @@ public class ScreenMenu implements Screen {
             camera.unproject(touch);
 
             if(btnPlay.hit(touch.x, touch.y)){
-                aerohokey.setScreen(aerohokey.screenGame);
+                main.setScreen(main.screenGame);
             }
             if(btnSettings.hit(touch.x, touch.y)){
-                aerohokey.setScreen(aerohokey.screenSettings);
+                main.setScreen(main.screenSettings);
             }
             if(btnAbout.hit(touch.x, touch.y)){
-                aerohokey.setScreen(aerohokey.screenAbout);
+                main.setScreen(main.screenAbout);
             }
             if(btnExit.hit(touch.x, touch.y)){
                 Gdx.app.exit();
@@ -77,8 +77,6 @@ public class ScreenMenu implements Screen {
         font.draw(batch, btnExit.text, btnExit.x, btnExit.y);
         batch.end();
     }
-
-
 
     @Override
     public void resize(int width, int height) {

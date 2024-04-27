@@ -1,6 +1,6 @@
 package com.aerohokey.game;
 
-import static com.aerohokey.game.Aerohokey.SCR_WIDTH;
+import static com.aerohokey.game.Aerohockey.SCR_WIDTH;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;

@@ -1,7 +1,7 @@
 package com.aerohokey.game;
 
-import static com.aerohokey.game.Aerohokey.TYPE_BRICK;
-import static com.aerohokey.game.Aerohokey.TYPE_SMILE;
+import static com.aerohokey.game.Aerohockey.TYPE_BRICK;
+import static com.aerohokey.game.Aerohockey.TYPE_CIRCLE;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -19,10 +19,9 @@ public class DynamicBody {
     private float width, height;
     private Body body;
     private Fixture fixture;
-    public int type;
+    boolean isDragged;
 
-    DynamicBody(World world, float x, float y, float r){
-        type = TYPE_SMILE;
+    DynamicBody(World world, float x, float y, float r, AeroObject o){
         this.x = x;
         this.y = y;
         this.r = r;
@@ -30,9 +29,12 @@ public class DynamicBody {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.linearDamping = 0.1f;
+        bodyDef.angularDamping = 0.1f;
         bodyDef.position.set(x, y);
 
         body = world.createBody(bodyDef);
+        body.setUserData(o);
 
         CircleShape shape = new CircleShape();
         shape.setRadius(r);
@@ -49,7 +51,6 @@ public class DynamicBody {
     }
 
     DynamicBody(World world, float x, float y, float width, float height){
-        type = TYPE_BRICK;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -57,6 +58,8 @@ public class DynamicBody {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.linearDamping = 0.1f;
+        bodyDef.angularDamping = 0.1f;
         bodyDef.position.set(x, y);
 
         body = world.createBody(bodyDef);
@@ -95,11 +98,15 @@ public class DynamicBody {
         return body.getAngle() * MathUtils.radiansToDegrees;
     }
 
+    public Body getBody() {
+        return body;
+    }
+
     public boolean hit(float tx, float ty) {
         return fixture.testPoint(tx, ty);
     }
 
-    public void setImpulse(){
-        body.applyLinearImpulse(new Vector2(0, 2), body.getPosition(), true);
+    public void setImpulse(Vector2 v){
+        body.applyLinearImpulse(v, body.getPosition(), true);
     }
 }

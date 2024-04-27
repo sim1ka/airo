@@ -9,9 +9,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 public class MyContactListener implements ContactListener {
-    Aerohokey main;
+    Aerohockey main;
 
-    public MyContactListener(Aerohokey main) {
+    public MyContactListener(Aerohockey main) {
         this.main = main;
     }
 

@@ -1,7 +1,7 @@
 package com.aerohokey.game;
 
-import static com.aerohokey.game.Aerohokey.SCR_HEIGHT;
-import static com.aerohokey.game.Aerohokey.SCR_WIDTH;
+import static com.aerohokey.game.Aerohockey.SCR_HEIGHT;
+import static com.aerohokey.game.Aerohockey.SCR_WIDTH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
 public class ScreenSettings implements Screen {
-    Aerohokey aerohokey;
+    Aerohockey main;
 
     Texture imgBackGround;
     SpriteBatch batch;
@@ -23,17 +23,17 @@ public class ScreenSettings implements Screen {
 
 
 
-    public ScreenSettings (Aerohokey aerohokey) {
-        this.aerohokey = aerohokey;
+    public ScreenSettings (Aerohockey main) {
+        this.main = main;
+        camera = main.cameraForFont;
+        touch = main.touch;
+        batch = main.batch;
+        fontLarge = main.fontLarge;
+        fontSmall = main.fontSmall;
+
         imgBackGround = new Texture("bg1.png");
-        camera = aerohokey.camera;
-        touch = aerohokey.touch;
-        batch = aerohokey.batch;
-        fontLarge = aerohokey.fontLarge;
-        fontSmall = aerohokey.fontSmall;
 
-        btnBack = new AeroButton("Back", 380, 630, fontLarge);
-
+        btnBack = new AeroButton("Back", 200, fontLarge);
     }
 
 
@@ -49,12 +49,9 @@ public class ScreenSettings implements Screen {
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touch);
             if (btnBack.hit(touch.x, touch.y)) {
-                aerohokey.setScreen(aerohokey.screenMenu);
+                main.setScreen(main.screenMenu);
             }
         }
-
-
-
 
         // отрисовка
         batch.setProjectionMatrix(camera.combined);
@@ -62,7 +59,6 @@ public class ScreenSettings implements Screen {
         batch.draw(imgBackGround, 0, 0, SCR_WIDTH, SCR_HEIGHT);
         fontLarge.draw(batch, btnBack.text, btnBack.x, btnBack.y);
         batch.end();
-
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.aerohokey.game;
 
-import static com.aerohokey.game.Aerohokey.WORLD_WIDTH;
+import static com.aerohokey.game.Aerohockey.WORLD_WIDTH;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;

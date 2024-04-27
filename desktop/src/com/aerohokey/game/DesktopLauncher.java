@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("aerohokey");
-		config.setWindowedMode(1050, 535);
-		new Lwjgl3Application(new Aerohokey(), config);
+		config.setWindowedMode(1280, 720);
+		new Lwjgl3Application(new Aerohockey(), config);
 	}
 }

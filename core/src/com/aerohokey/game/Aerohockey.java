@@ -10,15 +10,13 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Aerohokey extends Game {
+public class Aerohockey extends Game {
 	public static final float WORLD_WIDTH = 16, WORLD_HEIGHT = 9;
-	public static final float SCR_WIDTH = 900, SCR_HEIGHT = 1600;
-	public static final int TYPE_SMILE = 0, TYPE_BRICK = 1;
-
-	KinematicBody platform;
+	public static final float SCR_WIDTH = 1600, SCR_HEIGHT = 900;
+	public static final int TYPE_CIRCLE = 0, TYPE_BRICK = 1;
 
 	SpriteBatch batch;
-	OrthographicCamera camera;
+	OrthographicCamera camera, cameraForFont;
 	Vector3 touch;
 	BitmapFont fontLarge, fontSmall;
 
@@ -27,23 +25,23 @@ public class Aerohokey extends Game {
 	ScreenAbout screenAbout;
 	ScreenGame screenGame;
 	World world;
-	Box2DDebugRenderer debugRenderer;
-
+	Box2DDebugRenderer renderer;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+		cameraForFont = new OrthographicCamera();
+		cameraForFont.setToOrtho(false, SCR_WIDTH, SCR_HEIGHT);
 		touch = new Vector3();
+		world = new World(new Vector2(0, 0), true);
+		world.setContactListener(new MyContactListener(this));
+		renderer = new Box2DDebugRenderer();
+		renderer.setDrawVelocities(true);
+
 		fontLarge = new BitmapFont(Gdx.files.internal("gagalin.fnt"));
 		fontSmall = new BitmapFont(Gdx.files.internal("gagalin.fnt"));
-		world = new World(new Vector2(0f, 0f), true);
-		world.setContactListener(new MyContactListener(this));
-		debugRenderer = new Box2DDebugRenderer();
-		debugRenderer.setDrawVelocities(true);
-
-
 
 		screenMenu = new ScreenMenu(this);
 		screenSettings = new ScreenSettings(this);
@@ -52,13 +50,12 @@ public class Aerohokey extends Game {
 		setScreen(screenMenu);
 	}
 
-
-
-
-
 	@Override
 	public void dispose () {
 		batch.dispose();
 		fontLarge.dispose();
+		fontSmall.dispose();
+		world.dispose();
+		renderer.dispose();
 	}
 }
