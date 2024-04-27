@@ -36,7 +36,7 @@ public class ScreenGame implements Screen {
     StaticBody wallLeft0, wallLeft1;
     StaticBody wallRight0, wallRight1;
     StaticBody wallTop, wallDown;
-    DynamicBody bat0, bat1;
+    KinematicBody bat0, bat1;
     DynamicBody puck;
 
     public ScreenGame (Aerohockey main){
@@ -65,9 +65,9 @@ public class ScreenGame implements Screen {
         wallRight0 = new StaticBody(world, 15.9f, 1.5f, 0.2f, 3);
         wallRight1 = new StaticBody(world, 15.9f, 7.5f, 0.2f, 3);
 
-        puck = new DynamicBody(world, 8, 4.5f, 0.6f, new AeroObject("puck"));
-        bat0 = new DynamicBody(world, 3, 4.5f, 0.6f, new AeroObject("bat2"));
-        bat1 = new DynamicBody(world, 13, 4.5f, 0.6f, new AeroObject("bat1"));
+        puck = new DynamicBody(world, 8, 4.5f, 0.6f, "puck");
+        bat0 = new KinematicBody(world, 3, 4.5f, 0.6f, "bat0");
+        bat1 = new KinematicBody(world, 13, 4.5f, 0.6f, "bat1");
     }
 
     @Override

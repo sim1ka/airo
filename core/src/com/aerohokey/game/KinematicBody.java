@@ -3,38 +3,46 @@ package com.aerohokey.game;
 import static com.aerohokey.game.Aerohockey.WORLD_WIDTH;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class KinematicBody {
-    private float x, y;
+    public float x, y;
+    public float oldX, oldY;
+    private float r;
     private float width, height;
     private Body body;
-    private float vx = 0, vy = 0;
-    private float va = 0;
+    private Fixture fixture;
+    boolean isDragged;
 
-    KinematicBody(World world, float x, float y, float width, float height){
+    KinematicBody(World world, float x, float y, float r, String o){
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        this.r = r;
+        width = height = r*2;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;
         bodyDef.position.set(x, y);
 
         body = world.createBody(bodyDef);
+        body.setUserData(o);
 
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width/2, height/2);
+        CircleShape shape = new CircleShape();
+        shape.setRadius(r);
 
-        body.createFixture(shape, 0);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+
+        fixture = body.createFixture(fixtureDef);
+
         shape.dispose();
-
-        body.setLinearVelocity(vx, vy);
-        body.setAngularVelocity(va);
     }
 
     public float getX() {
@@ -53,17 +61,19 @@ public class KinematicBody {
         return height;
     }
 
-    public  float getAngle() {
+    public float getAngle() {
         return body.getAngle() * MathUtils.radiansToDegrees;
     }
 
-    public void move() {
-        x = body.getPosition().x;
-        if(x > WORLD_WIDTH | x <0) {
-            vx = -vx;
-            va = -va;
-            body.setLinearVelocity(vx, vy);
-            body.setAngularVelocity(va);
-        }
+    public Body getBody() {
+        return body;
+    }
+
+    public boolean hit(float tx, float ty) {
+        return fixture.testPoint(tx, ty);
+    }
+
+    public Vector2 getImpulse() {
+        return new Vector2((body.getPosition().x - oldX)*5, (body.getPosition().y - oldY)*5);
     }
 }

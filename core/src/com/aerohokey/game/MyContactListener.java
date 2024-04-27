@@ -22,9 +22,14 @@ public class MyContactListener implements ContactListener {
         Body bodyA = fixtureA.getBody();
         Body bodyB = fixtureB.getBody();
 
-        if(bodyA.getType() == BodyDef.BodyType.DynamicBody && bodyB.getType() == BodyDef.BodyType.DynamicBody) {
+        if(bodyA.getType() == BodyDef.BodyType.KinematicBody && bodyB.getType() == BodyDef.BodyType.DynamicBody
+        || bodyB.getType() == BodyDef.BodyType.KinematicBody && bodyA.getType() == BodyDef.BodyType.DynamicBody) {
             // Далее можно добавить логику для определения момента столкновения
-
+            if(bodyA.getUserData() instanceof KinematicBody){
+                bodyB.applyLinearImpulse(main.screenGame.bat0.getImpulse(), bodyB.getWorldCenter(), true);
+            } else {
+                bodyA.applyLinearImpulse(main.screenGame.bat0.getImpulse(), bodyA.getWorldCenter(), true);
+            }
         }
 
         if(bodyA.getType() == BodyDef.BodyType.DynamicBody && bodyB.getType() == BodyDef.BodyType.StaticBody ||

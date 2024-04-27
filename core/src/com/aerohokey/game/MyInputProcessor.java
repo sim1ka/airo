@@ -12,7 +12,7 @@ public class MyInputProcessor implements InputProcessor {
     World world;
     OrthographicCamera camera;
     Vector3 touch;
-    DynamicBody bat0, bat1;
+    KinematicBody bat0, bat1;
 
     public MyInputProcessor(Aerohockey main) {
         this.main = main;
@@ -45,6 +45,8 @@ public class MyInputProcessor implements InputProcessor {
         if(touch.x < WORLD_WIDTH/2) {
             if(bat0.hit(touch.x, touch.y)){
                 bat0.isDragged = true;
+                bat0.oldX = bat0.getBody().getPosition().x;
+                bat0.oldY = bat0.getBody().getPosition().y;
                 System.out.println(bat0.isDragged );
             }
         }
@@ -73,7 +75,9 @@ public class MyInputProcessor implements InputProcessor {
         touch.set(screenX, screenY, 0);
         camera.unproject(touch);
         if(bat0.isDragged){
-            if(touch.x < WORLD_WIDTH/2-bat0.getWidth()/2) {
+            if(touch.x < WORLD_WIDTH/2) {
+                bat0.oldX = bat0.getBody().getPosition().x;
+                bat0.oldY = bat0.getBody().getPosition().y;
                 bat0.getBody().setTransform(touch.x, touch.y, 0);
             }
         }

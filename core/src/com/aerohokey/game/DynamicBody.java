@@ -14,14 +14,13 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class DynamicBody {
-    private float x, y;
+    public float x, y;
     private float r;
     private float width, height;
     private Body body;
     private Fixture fixture;
-    boolean isDragged;
 
-    DynamicBody(World world, float x, float y, float r, AeroObject o){
+    DynamicBody(World world, float x, float y, float r, String o){
         this.x = x;
         this.y = y;
         this.r = r;
