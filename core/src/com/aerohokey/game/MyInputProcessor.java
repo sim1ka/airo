@@ -49,6 +49,12 @@ public class MyInputProcessor implements InputProcessor {
                 bat0.oldY = bat0.getBody().getPosition().y;
                 System.out.println(bat0.isDragged );
             }
+            if(bat1.hit(touch.x, touch.y)){
+                bat1.isDragged = true;
+                bat1.oldX = bat1.getBody().getPosition().x;
+                bat1.oldY = bat1.getBody().getPosition().y;
+                System.out.println(bat1.isDragged );
+            }
         }
         return false;
     }
@@ -60,6 +66,9 @@ public class MyInputProcessor implements InputProcessor {
         if(touch.x < WORLD_WIDTH/2) {
             if(bat0.hit(touch.x, touch.y)){
                 bat0.isDragged = false;
+            }
+            if(bat1.hit(touch.x, touch.y)){
+                bat1.isDragged = false;
             }
         }
         return false;
@@ -80,9 +89,17 @@ public class MyInputProcessor implements InputProcessor {
                 bat0.oldY = bat0.getBody().getPosition().y;
                 bat0.getBody().setTransform(touch.x, touch.y, 0);
             }
+            if(touch.x < WORLD_WIDTH/2) {
+                bat1.oldX = bat1.getBody().getPosition().x;
+                bat1.oldY = bat1.getBody().getPosition().y;
+                bat1.getBody().setTransform(touch.x, touch.y, 0);
+            }
         }
         return false;
+
     }
+
+
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
