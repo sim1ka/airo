@@ -51,10 +51,10 @@ public class ScreenGame implements Screen {
 
         font = main.fontSmall;
 
-        imgBackGround = new Texture("pole.jpg");
-        imgPuck = new Texture("puck.png");
-        imgBat0 = new Texture("puck.png");
-        imgBat1 = new Texture("puck.png");
+        imgBackGround = new Texture("pole.png");
+        imgPuck = new Texture("Puck.png");
+        imgBat0 = new Texture("bita1.png");
+        imgBat1 = new Texture("bita2.png");
 
         //btnExit = new AeroButton("exit", 0,1590, font);
 
@@ -86,12 +86,15 @@ public class ScreenGame implements Screen {
         }*/
 
         //отрсовка
-        ScreenUtils.clear(0, 0, 0, 1);
+        //ScreenUtils.clear(0, 0, 0, 1);
         batch.setProjectionMatrix(camera.combined);
         renderer.render(world, camera.combined);
         batch.begin();
-        //batch.draw(imgBackGround, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+        batch.draw(imgBackGround, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
         //font.draw(batch, btnExit.text, btnExit.x, btnExit.y);
+        batch.draw(imgBat0, bat0.getX(), bat0.getY(), bat0.getHeight(), bat0.getWidth());
+        batch.draw(imgBat1, bat1.getX(), bat1.getY(), bat1.getHeight(), bat1.getWidth());
+        batch.draw(imgPuck,  puck.getX(), puck.getY(), puck.getHeight(), puck.getWidth());
         batch.end();
         world.step(1/60f, 6, 2);
     }
