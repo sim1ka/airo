@@ -20,6 +20,7 @@ public class KinematicBody {
     private Body body;
     private Fixture fixture;
     boolean isDragged;
+    int pointer;
 
     KinematicBody(World world, float x, float y, float r, String o){
         this.x = x;

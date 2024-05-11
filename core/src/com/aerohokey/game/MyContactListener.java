@@ -1,5 +1,6 @@
 package com.aerohokey.game;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -25,10 +26,17 @@ public class MyContactListener implements ContactListener {
         if(bodyA.getType() == BodyDef.BodyType.KinematicBody && bodyB.getType() == BodyDef.BodyType.DynamicBody
         || bodyB.getType() == BodyDef.BodyType.KinematicBody && bodyA.getType() == BodyDef.BodyType.DynamicBody) {
             // Далее можно добавить логику для определения момента столкновения
+            Vector2 batImpulse;
+
+
             if(bodyA.getUserData() instanceof KinematicBody){
-                bodyB.applyLinearImpulse(main.screenGame.bat0.getImpulse(), bodyB.getWorldCenter(), true);
+                if(bodyA.getUserData().equals("bat0")) batImpulse = main.screenGame.bat0.getImpulse();
+                else batImpulse = main.screenGame.bat1.getImpulse();
+                bodyB.applyLinearImpulse(batImpulse, bodyB.getWorldCenter(), true);
             } else {
-                bodyA.applyLinearImpulse(main.screenGame.bat0.getImpulse(), bodyA.getWorldCenter(), true);
+                if(bodyB.getUserData().equals("bat0")) batImpulse = main.screenGame.bat0.getImpulse();
+                else batImpulse = main.screenGame.bat1.getImpulse();
+                bodyA.applyLinearImpulse(batImpulse, bodyA.getWorldCenter(), true);
             }
         }
 
