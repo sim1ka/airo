@@ -31,7 +31,7 @@ public class ScreenSettings implements Screen {
         fontLarge = main.fontLarge;
         fontSmall = main.fontSmall;
 
-        imgBackGround = new Texture("bg1.png");
+        imgBackGround = new Texture("background.png");
 
         btnBack = new AeroButton("Back", 200, fontLarge);
     }
