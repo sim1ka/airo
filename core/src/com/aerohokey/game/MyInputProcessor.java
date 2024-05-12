@@ -53,7 +53,7 @@ public class MyInputProcessor implements InputProcessor {
                     bat0.oldX = bat0.getBody().getPosition().x;
                     bat0.oldY = bat0.getBody().getPosition().y;
                 }
-            } else if (touch.x >= WORLD_WIDTH / 2) {
+            } else if (touch.x > WORLD_WIDTH / 2) {
                 if (bat1.hit(touch.x, touch.y)) {
                     bat1.isDragged = true;
                     bat1.pointer = 0;
@@ -71,7 +71,7 @@ public class MyInputProcessor implements InputProcessor {
                     bat0.oldX = bat0.getBody().getPosition().x;
                     bat0.oldY = bat0.getBody().getPosition().y;
                 }
-            } else if (touch.x >= WORLD_WIDTH / 2) {
+            } else if (touch.x > WORLD_WIDTH / 2) {
                 if (bat1.hit(touch.x, touch.y)) {
                     bat1.isDragged = true;
                     bat1.pointer = 1;
