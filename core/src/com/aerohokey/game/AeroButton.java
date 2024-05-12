@@ -2,12 +2,14 @@ package com.aerohokey.game;
 
 import static com.aerohokey.game.Aerohockey.SCR_WIDTH;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 public class AeroButton {
     String text;
     BitmapFont font;
+    Texture img;
     float x, y;
     float width, height;
 
@@ -31,7 +33,16 @@ public class AeroButton {
         this.y = y;
     }
 
+    public AeroButton(Texture img, float x, float y, float width, float height) {
+        this.img = img;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
     boolean hit(float tx, float ty){
+        if(img != null) return x < tx & tx < x+width & y < ty & ty < y+height;
         return x < tx & tx < x+width & y-height < ty & ty < y;
     }
 

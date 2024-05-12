@@ -111,25 +111,12 @@ public class DynamicBody {
     }
 
     public void resetPosition(float x, float y) {
-        body.setTransform(x, y, body.getAngle());
+        body.setTransform(x, y, 0);
+        body.setLinearVelocity(0,0);
+        body.setAngularVelocity(0);
     }
 
     public void update(float delta) {
-    }
-
-    public boolean isOffScreen() {
-        float screenWidth = Aerohockey.WORLD_WIDTH;
-        float screenHeight = Aerohockey.WORLD_HEIGHT;
-
-        if (getX() - r < 0 || getX() + r > screenWidth) {
-            return true;
-        }
-
-        if (getY() - r < 0 || getY() + r > screenHeight) {
-            return true;
-        }
-
-        return false;
     }
 }
 

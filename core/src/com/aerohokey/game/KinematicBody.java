@@ -27,6 +27,8 @@ public class KinematicBody {
         this.y = y;
         this.r = r;
         width = height = r*2;
+        oldX = x;
+        oldY = y;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;
@@ -79,6 +81,9 @@ public class KinematicBody {
     }
 
     public void resetPosition(float x, float y) {
-        body.setTransform(x, y, body.getAngle());
+        isDragged = false;
+        body.setTransform(x, y, 0);
+        body.setLinearVelocity(0,0);
+        body.setAngularVelocity(0);
     }
 }

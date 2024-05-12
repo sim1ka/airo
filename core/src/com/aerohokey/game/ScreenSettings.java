@@ -25,7 +25,7 @@ public class ScreenSettings implements Screen {
 
     public ScreenSettings (Aerohockey main) {
         this.main = main;
-        camera = main.cameraForFont;
+        camera = main.cameraFont;
         touch = main.touch;
         batch = main.batch;
         fontLarge = main.fontLarge;

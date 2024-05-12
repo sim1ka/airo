@@ -26,7 +26,7 @@ public class ScreenMenu implements Screen {
 
     public ScreenMenu (Aerohockey main) {
         this.main = main;
-        camera = main.cameraForFont;
+        camera = main.cameraFont;
         touch = main.touch;
         batch = main.batch;
         font = main.fontSmall;
