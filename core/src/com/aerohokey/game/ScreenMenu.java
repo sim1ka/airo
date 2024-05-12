@@ -34,9 +34,9 @@ public class ScreenMenu implements Screen {
         imgBackGround = new Texture("bg0.png");
 
         btnPlay = new AeroButton("Play", 800, font);
-        btnSettings = new AeroButton("Settings", 700, font);
-        btnAbout = new AeroButton("About Game", 600, font);
-        btnExit = new AeroButton("Exit", 500, font);
+        btnSettings = new AeroButton("Settings", 0, font);
+        btnAbout = new AeroButton("About Game", 700, font);
+        btnExit = new AeroButton("Exit", 600, font);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class ScreenMenu implements Screen {
         batch.begin();
         batch.draw(imgBackGround, 0, 0, SCR_WIDTH, SCR_HEIGHT);
         font.draw(batch, btnPlay.text, btnPlay.x, btnPlay.y);
-        font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+        //font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
         font.draw(batch, btnAbout.text, btnAbout.x, btnAbout.y);
         font.draw(batch, btnExit.text, btnExit.x, btnExit.y);
         batch.end();

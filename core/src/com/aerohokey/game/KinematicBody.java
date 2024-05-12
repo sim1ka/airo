@@ -77,4 +77,8 @@ public class KinematicBody {
     public Vector2 getImpulse() {
         return new Vector2((body.getPosition().x - oldX)*5, (body.getPosition().y - oldY)*5);
     }
+
+    public void resetPosition(float x, float y) {
+        body.setTransform(x, y, body.getAngle());
+    }
 }

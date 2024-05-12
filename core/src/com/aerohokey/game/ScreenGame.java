@@ -7,6 +7,7 @@ import static com.aerohokey.game.Aerohockey.WORLD_WIDTH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -39,6 +40,12 @@ public class ScreenGame implements Screen {
     KinematicBody bat0, bat1;
     DynamicBody puck;
 
+    private int score;
+    private static final float FONT_SIZE = 0.1f;
+    private static final float SCORE_POSITION_X = 3.5f;
+    private static final float SCORE_POSITION_Y = 9f;
+
+
     public ScreenGame (Aerohockey main){
         this.main = main;
 
@@ -48,8 +55,10 @@ public class ScreenGame implements Screen {
         batch = main.batch;
         world = main.world;
         renderer = main.renderer;
-
-        font = main.fontSmall;
+        font = new BitmapFont();
+        font.setColor(Color.RED);
+        font.getData().setScale(FONT_SIZE);
+        //font = main.fontSmall;
 
         imgBackGround = new Texture("pole.png");
         imgPuck = new Texture("Puck.png");
@@ -69,7 +78,10 @@ public class ScreenGame implements Screen {
         bat0 = new KinematicBody(world, 3, 4.5f, 0.6f, "bat0");
         bat1 = new KinematicBody(world, 13, 4.5f, 0.6f, "bat1");
     }
-
+    public void addGoal() {
+        score++;
+        restart();
+    }
     @Override
     public void show() {
         Gdx.input.setInputProcessor(new MyInputProcessor(main));
@@ -85,20 +97,27 @@ public class ScreenGame implements Screen {
             }
         }*/
 
+
         //отрсовка
         ScreenUtils.clear(0, 0, 0, 1);
         batch.setProjectionMatrix(camera.combined);
         renderer.render(world, camera.combined);
-     /*   batch.begin();
+        batch.begin();
         batch.draw(imgBackGround, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
         //font.draw(batch, btnExit.text, btnExit.x, btnExit.y);
         batch.draw(imgBat0, bat0.getX(), bat0.getY(), bat0.getHeight(), bat0.getWidth());
         batch.draw(imgBat1, bat1.getX(), bat1.getY(), bat1.getHeight(), bat1.getWidth());
         batch.draw(imgPuck,  puck.getX(), puck.getY(), puck.getHeight(), puck.getWidth());
-        batch.end();*/
+        font.draw(batch, "Score: " + score, SCORE_POSITION_X, SCORE_POSITION_Y);
+        batch.end();
         world.step(1/60f, 6, 2);
     }
 
+    private void restart() {
+        puck.resetPosition(8.0f, 4.5f);
+        bat0.resetPosition(3.0f, 4.5f);
+        bat1.resetPosition(13.0f, 4.5f);
+    }
     @Override
     public void resize(int width, int height) {
 

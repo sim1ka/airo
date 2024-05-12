@@ -15,16 +15,17 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class DynamicBody {
     public float x, y;
+
     private float r;
     private float width, height;
     private Body body;
     private Fixture fixture;
 
-    DynamicBody(World world, float x, float y, float r, String o){
+    DynamicBody(World world, float x, float y, float r, String o) {
         this.x = x;
         this.y = y;
         this.r = r;
-        width = height = r*2;
+        width = height = r * 2;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -49,7 +50,7 @@ public class DynamicBody {
         shape.dispose();
     }
 
-    DynamicBody(World world, float x, float y, float width, float height){
+    DynamicBody(World world, float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -64,7 +65,7 @@ public class DynamicBody {
         body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width/2, height/2);
+        shape.setAsBox(width / 2, height / 2);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
@@ -78,11 +79,11 @@ public class DynamicBody {
     }
 
     public float getX() {
-        return body.getPosition().x-width/2;
+        return body.getPosition().x - width / 2;
     }
 
     public float getY() {
-        return body.getPosition().y-height/2;
+        return body.getPosition().y - height / 2;
     }
 
     public float getWidth() {
@@ -105,7 +106,31 @@ public class DynamicBody {
         return fixture.testPoint(tx, ty);
     }
 
-    public void setImpulse(Vector2 v){
+    public void setImpulse(Vector2 v) {
         body.applyLinearImpulse(v, body.getPosition(), true);
     }
+
+    public void resetPosition(float x, float y) {
+        body.setTransform(x, y, body.getAngle());
+    }
+
+    public void update(float delta) {
+    }
+
+    public boolean isOffScreen() {
+        float screenWidth = Aerohockey.WORLD_WIDTH;
+        float screenHeight = Aerohockey.WORLD_HEIGHT;
+
+        if (getX() - r < 0 || getX() + r > screenWidth) {
+            return true;
+        }
+
+        if (getY() - r < 0 || getY() + r > screenHeight) {
+            return true;
+        }
+
+        return false;
+    }
 }
+
+

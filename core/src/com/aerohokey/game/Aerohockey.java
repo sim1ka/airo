@@ -2,6 +2,7 @@ package com.aerohokey.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,6 +16,7 @@ public class Aerohockey extends Game {
 	public static final float SCR_WIDTH = 1600, SCR_HEIGHT = 900;
 	public static final int TYPE_CIRCLE = 0, TYPE_BRICK = 1;
 
+
 	SpriteBatch batch;
 	OrthographicCamera camera, cameraForFont;
 	Vector3 touch;
@@ -27,6 +29,7 @@ public class Aerohockey extends Game {
 	World world;
 	Box2DDebugRenderer renderer;
 
+	BitmapFont font;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -39,9 +42,11 @@ public class Aerohockey extends Game {
 		world.setContactListener(new MyContactListener(this));
 		renderer = new Box2DDebugRenderer();
 		renderer.setDrawVelocities(true);
+		font = new BitmapFont();
 
 		fontLarge = new BitmapFont(Gdx.files.internal("gagalin.fnt"));
 		fontSmall = new BitmapFont(Gdx.files.internal("gagalin.fnt"));
+
 
 		screenMenu = new ScreenMenu(this);
 		screenSettings = new ScreenSettings(this);
@@ -49,6 +54,7 @@ public class Aerohockey extends Game {
 		screenGame = new ScreenGame(this);
 		setScreen(screenMenu);
 	}
+
 
 	@Override
 	public void dispose () {

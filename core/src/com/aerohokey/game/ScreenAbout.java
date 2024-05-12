@@ -57,6 +57,7 @@ public class ScreenAbout implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(imgBackGround, 0, 0, SCR_WIDTH, SCR_HEIGHT);
+        fontLarge.draw(batch, "Эта игра была сделана как проэкт для школы самсунг", 5,600);
         fontLarge.draw(batch, btnBack.text, btnBack.x, btnBack.y);
         batch.end();
     }
